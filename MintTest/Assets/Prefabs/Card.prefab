@@ -109,7 +109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.34954724, y: 0.5}
   m_AnchorMax: {x: 0.82000005, y: 0.83000004}
-  m_AnchoredPosition: {x: 0, y: 1.2919998}
+  m_AnchoredPosition: {x: 0, y: 1.2919922}
   m_SizeDelta: {x: 1.546814, y: 2.5839996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3721330213179252679
@@ -218,6 +218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3359350103838582043}
+  - component: {fileID: 5203886132425865876}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -253,6 +254,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0.33374023, y: 0}
   m_SizeDelta: {x: 16, y: -2}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5203886132425865876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1765992691844699829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228b0e5bdd52b514faab386cf4719eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 4464623765367592752}
+  _favorite: {fileID: 8272473400143308218}
+  _check: {fileID: 3465867425729078501}
+  _name: {fileID: 7676760117729849489}
+  _mail: {fileID: 1393167172054448280}
+  _ip: {fileID: 7078451831176709480}
 --- !u!1 &2311720401257167848
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +307,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.048653305, y: 0.34500003}
   m_AnchorMax: {x: 0.10700001, y: 0.67}
-  m_AnchoredPosition: {x: -0.9999695, y: -1.5}
+  m_AnchoredPosition: {x: -0.99993896, y: -1.5}
   m_SizeDelta: {x: 0.8312988, y: 0.16049957}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5089704220216970114
