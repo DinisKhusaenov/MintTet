@@ -3,21 +3,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardView : MonoBehaviour
+public class Profile : MonoBehaviour
 {
     public event Action<CardData> FavoriteClicked;
-    public event Action<CardData> CheckClicked;
+    public event Action QuitClicked;
 
     [SerializeField] private Image _icon;
     [SerializeField] private Button _favorite;
-    [SerializeField] private Button _check;
+    [SerializeField] private Button _quit;
     [SerializeField] private TMP_Text _name;
+    [SerializeField] private TMP_Text _gender;
     [SerializeField] private TMP_Text _mail;
     [SerializeField] private TMP_Text _ip;
     [SerializeField] private Sprite _favoriteImage;
     [SerializeField] private Sprite _notFavoriteImage;
 
-    public CardData CurrentCard { get; private set;}
+    private CardData _currentCard;
+
+    private void Awake()
+    {
+        Hide();
+    }
 
     public void Initialize(CardData card)
     {
@@ -27,39 +33,39 @@ public class CardView : MonoBehaviour
         _name.text = card.FirstName + " " + card.LastName;
         _mail.text = card.Mail;
         _ip.text = card.Ip;
+        _gender.text = card.Gender;
 
-        CurrentCard = card;
+        _currentCard = card;
 
         ChangeFavoriteIcon();
-    }
 
-    private void OnEnable()
-    {
         _favorite.onClick.AddListener(OnFavoriteClicked);
-        _check.onClick.AddListener(OnCheckClicked);
+        _quit.onClick.AddListener(Hide);
     }
 
     private void OnDisable()
     {
         _favorite.onClick.RemoveListener(OnFavoriteClicked);
-        _check.onClick.RemoveListener(OnCheckClicked);
+        _quit.onClick.RemoveListener(Hide);
+    }
+
+    public void Show() => gameObject.SetActive(true);
+
+    private void Hide()
+    {
+        QuitClicked?.Invoke();
+        gameObject.SetActive(false);
     }
 
     private void OnFavoriteClicked()
     {
-        FavoriteClicked?.Invoke(CurrentCard);
-
+        FavoriteClicked?.Invoke(_currentCard);
         ChangeFavoriteIcon();
-    }
-
-    private void OnCheckClicked()
-    {
-        CheckClicked?.Invoke(CurrentCard);
     }
 
     private void ChangeFavoriteIcon()
     {
-        if (CurrentCard.IsFavorite)
+        if (_currentCard.IsFavorite)
         {
             _favorite.image.sprite = _favoriteImage;
         }

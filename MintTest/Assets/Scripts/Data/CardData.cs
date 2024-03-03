@@ -1,30 +1,63 @@
+using Newtonsoft.Json;
 using System;
-using UnityEngine.UI;
+using UnityEngine;
 
 [Serializable]
 public class CardData
 {
-    private Image _icon;
-    private string _firstName;
-    private string _lastName;
-    private string _gender;
-    private string _mail;
-    private string _ip;
+    [JsonProperty]
+    public bool IsFavorite;
+    [JsonProperty]
+    private int id;
+    [JsonProperty]
+    private string first_name;
+    [JsonProperty]
+    private string last_name;
+    [JsonProperty]
+    private string email;
+    [JsonProperty]
+    private string gender;
+    [JsonProperty]
+    private string ip_address;
+    [JsonProperty]
+    private string _iconPath;
 
-    public CardData(string firstName, string lastName, string gender, string mail, string ip, Image icon)
+    public CardData(int id, string first_name, string last_name, string email, string gender, string ip_address, string iconPath)
     {
-        _firstName = firstName;
-        _lastName = lastName;
-        _gender = gender;
-        _mail = mail;
-        _ip = ip;
-        _icon = icon;
+        this.id = id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.gender = gender;
+        this.email = email;
+        this.ip_address = ip_address;
+        this._iconPath = iconPath;
     }
 
-    public Image Icon => _icon;
-    public string FirstName => _firstName;
-    public string LastName => _lastName;
-    public string Gender => _gender;
-    public string Mail => _mail;
-    public string Ip => _ip;
+    public string IconPath => _iconPath;
+
+    public string FirstName => first_name;
+
+    public string LastName => last_name;
+
+    public string Gender => gender;
+
+    public string Mail => email;
+
+    public string Ip => ip_address;
+
+    public Sprite GetIcon() => LoadSpriteFromDisk(_iconPath);
+
+    public void SetIcon(string iconPath)
+    {
+        if (iconPath != null)
+            _iconPath = iconPath;
+    }
+
+    private Sprite LoadSpriteFromDisk(string path)
+    {
+        byte[] bytes = System.IO.File.ReadAllBytes(path);
+        Texture2D texture = new Texture2D(2, 2);
+        texture.LoadImage(bytes);
+        return Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+    }
 }

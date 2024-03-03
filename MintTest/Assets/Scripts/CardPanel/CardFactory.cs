@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardFactory
 {
@@ -12,7 +11,8 @@ public class CardFactory
 
     public CardView Get(CardData cardData, Transform content)
     {
-        var card = Object.Instantiate(_cardView, content.position, Quaternion.identity);
+        var card = Object.Instantiate(_cardView);
+        card.transform.SetParent(content);
 
         card.Initialize(cardData);
 
