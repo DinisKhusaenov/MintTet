@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class ImageLoader
 {
     private const int NumberOfImages = 5;
-    private const string SavedImages = "Assets/Sprites/SavedSprites/sprite_";
+    private const string SavedImages = "Sprites/SavedSprites";
     private const string BaseUrl = "https://loremflickr.com/600/450";
 
     public event Action Imagesloaded;
@@ -45,15 +46,34 @@ public class ImageLoader
             Debug.LogError("Failed to download image: " + www.error);
         }
 
-        if(count == NumberOfImages - 1)
+        if (count == NumberOfImages - 1)
+        {
             Imagesloaded?.Invoke();
+        }
     }
 
     private string SaveSpriteToDisk(Sprite sprite)
     {
         byte[] bytes = sprite.texture.EncodeToPNG();
-        string path = SavedImages + Guid.NewGuid().ToString() + ".png";
-        System.IO.File.WriteAllBytes(path, bytes);
-        return path;
+
+        string folderPath = GetSaveFolderPath();
+        string fileName = $"{Guid.NewGuid()}.png";
+        string filePath = Path.Combine(folderPath, fileName);
+
+        File.WriteAllBytes(filePath, bytes);
+
+        return filePath;
+    }
+
+    private string GetSaveFolderPath()
+    {
+        string folderPath = Path.Combine(Application.persistentDataPath, SavedImages);
+
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
+
+        return folderPath;
     }
 }

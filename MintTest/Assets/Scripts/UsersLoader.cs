@@ -68,6 +68,7 @@ public class UsersLoader: IDisposable
             {
                 Debug.LogError("Failed to parse JSON data.");
             }
+            DataLoaded?.Invoke();
         }
         else
         {
